@@ -1,7 +1,0 @@
-fastapi
-uvicorn[standard]
-SQLAlchemy
-pymysql
-python-dotenv
-reportlab
-alembic
