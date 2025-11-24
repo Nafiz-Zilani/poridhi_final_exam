@@ -2,3 +2,17 @@ npm start
 
 npm run build
 
+---------------------
+
+uvicorn app.main:app --reload --port 8000
+
+---------------------
+
+docker run -d \
+  --name users-db \
+  -e MYSQL_ROOT_PASSWORD=rootpassword \
+  -e MYSQL_DATABASE=users_db \
+  -e MYSQL_USER=users_user \
+  -e MYSQL_PASSWORD=users_pass \
+  -p 3306:3306 \
+  mysql:8
