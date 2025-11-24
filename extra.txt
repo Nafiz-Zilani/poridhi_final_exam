@@ -2,9 +2,21 @@ npm start
 
 npm run build
 
+docker build -t react-frontend .
+
+docker run -d -p 3000:80 react-frontend
+
 ---------------------
 
 uvicorn app.main:app --reload --port 8000
+
+alembic revision --autogenerate -m "Add users table"
+
+alembic upgrade head
+
+docker build -t from-fastapi-app .
+
+docker run -d --name fastapi-container -p 8000:8000 from-fastapi-app
 
 ---------------------
 
