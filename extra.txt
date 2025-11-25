@@ -28,3 +28,9 @@ docker run -d \
   -e MYSQL_PASSWORD=users_pass \
   -p 3306:3306 \
   mysql:8
+
+---------------------
+
+docker tag react-frontend nafizzilani/from-react-app:v1.1
+
+docker push nafizzilani/from-react-app:v1.1
