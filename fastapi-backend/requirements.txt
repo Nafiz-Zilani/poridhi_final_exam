@@ -7,3 +7,4 @@ python-dotenv
 pydantic
 cryptography
 email-validator
+python-dotenv
