@@ -3,17 +3,24 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from dotenv import load_dotenv
 import os
 
-# Load env file
+# Load environment variables from .env file
 load_dotenv()
 
-DB_USER = os.getenv("DB_USER")
-DB_PASS = os.getenv("DB_PASS")
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT")
-DB_NAME = os.getenv("DB_NAME")
+# Read from ENV
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# Debug print to confirm value (important for Docker)
+print("🔍 Loaded DATABASE_URL =", DATABASE_URL)
 
+# Fail early if env is missing
+if not DATABASE_URL:
+    raise Exception(
+        "❌ DATABASE_URL is missing! "
+        "Docker does NOT read .env automatically. "
+        "Run container with: docker run --env-file .env ..."
+    )
+
+# Create the SQLAlchemy engine
 engine = create_engine(
     DATABASE_URL,
     echo=False,
@@ -21,14 +28,18 @@ engine = create_engine(
     future=True
 )
 
+# Create session maker
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
     bind=engine
 )
 
+# Base class for ORM models
 Base = declarative_base()
 
+
+# Dependency for FastAPI routes
 def get_db():
     db = SessionLocal()
     try:

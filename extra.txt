@@ -16,7 +16,7 @@ alembic upgrade head
 
 docker build -t from-fastapi-app .
 
-docker run -d --name fastapi-container -p 8000:8000 from-fastapi-app
+docker run --name fastapi-container -p 8000:8000 from-fastapi-app
 
 ---------------------
 
