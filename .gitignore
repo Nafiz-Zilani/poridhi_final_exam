@@ -3,3 +3,4 @@ node_modules
 fastapi-back-end/receipts
 .DS_Store
 .terraform
+__pycache__
