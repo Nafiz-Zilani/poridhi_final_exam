@@ -1,10 +1,10 @@
-variable "m_security_group_name" {
+variable "module_security_group_name" {
   description = "Name of the security group"
   type        = string
   
 }
 
-variable "m_vpc_id" {
+variable "module_vpc_id" {
   description = "VPC ID"
   type        = string
   

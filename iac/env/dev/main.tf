@@ -53,3 +53,66 @@ module "subnets" {
   }
 }
 
+module "nat_getaway" {
+  
+  source = "../../modules/nat"
+
+  module_nat_geteway_name     = var.development_nat_geteway_name
+  module_nat_geteway_ip_name  = var.development_nat_geteway_ip_name
+  module_subnet_id            = module.subnets.development_private_subnet_name
+}
+
+module "bastion_subnet_security_groups" {
+  
+  source = "../../modules/security_group"
+
+  module_security_group_name = var.development_proxy_security_group_name
+  module_vpc_id = module.vpc.vpc_id
+
+  ingress_rules = [
+    {
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["10.0.39.0/24"]
+      description = "SSH"
+    },
+    {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+      description = "HTTP"
+    },
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+      description = "HTTPS"
+    },
+    {
+      from_port   = -1
+      to_port     = -1
+      protocol    = "icmp"
+      cidr_blocks = [var.development_cidr_block]  # or your VPC CIDR
+      description = "Allow ICMP (ping) from within VPC"
+    }
+  ]
+
+  egress_rules = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+      description = "Allow all"
+    }
+  ]
+
+  tags = {
+    Name = var.development_proxy_server_tag_name
+    Environment = var.development_proxy_server_tag_environment
+  }
+}
+

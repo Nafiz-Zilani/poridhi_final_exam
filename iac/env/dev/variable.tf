@@ -105,3 +105,35 @@ variable "development_private_subnet_name" {
   description = "Name of the private subnet"
   type        = string
 }
+
+#############NAT Gateway Module Variables#############
+
+variable "development_nat_geteway_name" {
+  description = "The name of the NAT gateway"
+  type        = string
+  default     = "dev-nat-gateway"
+}
+
+variable "development_nat_geteway_ip_name" {
+  description = "The name of the NAT gateway IP"
+  type        = string
+  default     = "dev-nat-gateway-ip"
+}
+
+##############Security Group Module Variables#############
+
+variable "development_proxy_security_group_name" {
+  description = "The name of the Proxy Server Security Group in development environment"
+  type        = string
+}
+
+variable "development_proxy_server_tag_name" {
+  description = "The tag name for the Proxy Server in development environment"
+  type        = string
+}
+
+variable "development_proxy_server_tag_environment" {
+  description = "The tag name for the Proxy Server in development environment"
+  type        = string
+}
+

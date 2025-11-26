@@ -1,8 +1,8 @@
 resource "aws_route_table" "this" {
-  vpc_id = var.m_vpc_id
+  vpc_id = var.module_vpc_id
 
   dynamic "route" {
-    for_each = var.m_routes
+    for_each = var.module_routes
     content {
       cidr_block     = route.value.cidr_block
       gateway_id     = lookup(route.value, "gateway_id", null)
@@ -15,12 +15,12 @@ resource "aws_route_table" "this" {
   }
 
   tags = {
-    Name = var.m_route_table_name
+    Name = var.module_route_table_name
   }
 }
 
 resource "aws_route_table_association" "this" {
-  count          = length(var.m_subnet_ids)
-  subnet_id      = var.m_subnet_ids[count.index]
+  count          = length(var.module_subnet_ids)
+  subnet_id      = var.module_subnet_ids[count.index]
   route_table_id = aws_route_table.this.id
 }

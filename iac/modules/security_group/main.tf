@@ -1,6 +1,6 @@
 resource "aws_security_group" "this" {
-  name        = var.m_security_group_name
-  vpc_id      = var.m_vpc_id
+  name        = var.module_security_group_name
+  vpc_id      = var.module_vpc_id
 
   dynamic "ingress" {
     for_each = var.ingress_rules
