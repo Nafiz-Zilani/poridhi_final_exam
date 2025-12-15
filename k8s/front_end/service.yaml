@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-user-management-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: react-user-management
+  ports:
+    - port: 80
+      targetPort: 80

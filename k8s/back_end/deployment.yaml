@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-users
+  template:
+    metadata:
+      labels:
+        app: fastapi-users
+    spec:
+      containers:
+        - name: fastapi
+          image: nafizzilani/from-fastapi-app:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: "mysql+mysqldb://user:password@mysql-host:3306/users_db"
